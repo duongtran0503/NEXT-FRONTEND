@@ -1,26 +1,307 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── shadcn core ─────────────────────────────── */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+
+  /* ── Radius scale ────────────────────────────── */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ── Brand utilities ───────────────── */
+  --color-background-primary: var(--custom-background-primary);
+  --color-brand-primary-1: var(--custom-brand-primary-1);
+  --color-brand-primary-2: var(--custom-brand-primary-2);
+  --color-brand-secondary: var(--custom-brand-secondary);
+  --color-brand-subtitle: var(--custom-brand-subtitle);
+  --color-brand-soft: var(--custom-brand-soft);
+  --color-brand-text: var(--custom-brand-text);
+  --color-brand-price: var(--custom-brand-price);
+  --color-brand-slogan: var(--custom-brand-slogan);
+  --background-image-brand-gradient: var(--custom-brand-btn-gradient);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   TIER 1 — PRIMITIVE TOKENS
+   ============================================================ */
+:root {
+  /* ── Brand ─────────────────────────── */
+  --brand-red-600: #710105;
+  --brand-red-500: #d33d53;
+  --brand-red-100: #f4ebeb;
+  --brand-red-50: #faf5f5;
+
+  /* ── Neutral ─────────────────────────────────── */
+  --brand-gray-0: #ffffff;
+  --brand-gray-50: #f9fafb;
+  --brand-gray-100: #f3f4f6;
+  --brand-gray-200: #e5e7eb;
+  --brand-gray-400: #9ca3af;
+  --brand-gray-500: #555f6c;
+  --brand-gray-700: #374151;
+  --brand-gray-900: #1a1a1a;
+  --brand-gray-950: #0f0f0f;
+
+  /* ── Feedback ────────────────────────────────── */
+  --brand-green-500: #22c55e;
+  --brand-yellow-500: #f59e0b;
+  --brand-red-500-fb: #ef4444;
+  --brand-blue-500: #3b82f6;
+
+  /* ── Radius ──────────────────────────────────── */
+  --radius: 0.625rem;
+
+  /* ── shadcn semantic (LIGHT) ─────────────────── */
+  --background: var(--brand-gray-0);
+  --foreground: var(--brand-gray-900);
+
+  --card: var(--brand-gray-0);
+  --card-foreground: var(--brand-gray-900);
+
+  --popover: var(--brand-gray-0);
+  --popover-foreground: var(--brand-gray-900);
+
+  --primary: var(--brand-red-600);
+  --primary-foreground: var(--brand-gray-0);
+
+  --secondary: var(--brand-red-500);
+  --secondary-foreground: var(--brand-gray-0);
+
+  --muted: var(--brand-gray-50);
+  --muted-foreground: var(--brand-gray-500);
+
+  --accent: var(--brand-red-100);
+  --accent-foreground: var(--brand-red-600);
+
+  --destructive: var(--brand-red-500-fb);
+  --destructive-foreground: var(--brand-gray-0);
+
+  --border: var(--brand-gray-200);
+  --input: var(--brand-gray-200);
+  --ring: var(--brand-red-600);
+
+  --chart-1: var(--brand-red-600);
+  --chart-2: var(--brand-red-500);
+  --chart-3: var(--brand-blue-500);
+  --chart-4: var(--brand-green-500);
+  --chart-5: var(--brand-gray-500);
+
+  --sidebar: var(--brand-gray-50);
+  --sidebar-foreground: var(--brand-gray-900);
+  --sidebar-primary: var(--brand-red-600);
+  --sidebar-primary-foreground: var(--brand-gray-0);
+  --sidebar-accent: var(--brand-red-100);
+  --sidebar-accent-foreground: var(--brand-red-600);
+  --sidebar-border: var(--brand-gray-200);
+  --sidebar-ring: var(--brand-red-600);
+
+  /* ── Custom brand tokens ─────────────────── */
+  --custom-background-primary: var(--background);
+  --custom-brand-primary-1: var(--brand-red-600);
+  --custom-brand-primary-2: var(--brand-gray-900);
+  --custom-brand-secondary: var(--brand-red-500);
+  --custom-brand-subtitle: var(--brand-gray-500);
+  --custom-brand-soft: var(--brand-red-100);
+  --custom-brand-text: var(--brand-gray-900);
+  --custom-brand-price: var(--brand-red-600);
+  --custom-brand-slogan: var(--brand-red-600);
+
+  /* ── Gradient brand ── */
+  --brand-red-800: #680615;
+  --brand-red-600-grad: #b92338;
+  --custom-brand-btn-gradient: linear-gradient(
+    90deg,
+    var(--brand-red-800) 0%,
+    var(--brand-red-600-grad) 100%
+  );
+}
+
+/* ============================================================
+   DARK THEME
+   ============================================================ */
+.dark {
+  --background: var(--brand-gray-950);
+  --foreground: var(--brand-gray-50);
+
+  --card: #1e1e1e;
+  --card-foreground: var(--brand-gray-50);
+
+  --popover: #1e1e1e;
+  --popover-foreground: var(--brand-gray-50);
+
+  --primary: #a11c22;
+  --primary-foreground: var(--brand-gray-0);
+
+  --secondary: var(--brand-red-500);
+  --secondary-foreground: var(--brand-gray-0);
+
+  --muted: #262626;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #3a0103;
+  --accent-foreground: var(--brand-red-100);
+
+  --destructive: #f87171;
+  --destructive-foreground: var(--brand-gray-0);
+
+  --border: #333333;
+  --input: #333333;
+  --ring: #a11c22;
+
+  --chart-1: #a11c22;
+  --chart-2: var(--brand-red-500);
+  --chart-3: var(--brand-blue-500);
+  --chart-4: var(--brand-green-500);
+  --chart-5: #a1a1aa;
+
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: var(--brand-gray-50);
+  --sidebar-primary: #a11c22;
+  --sidebar-primary-foreground: var(--brand-gray-0);
+  --sidebar-accent: #3a0103;
+  --sidebar-accent-foreground: var(--brand-red-100);
+  --sidebar-border: #333333;
+  --sidebar-ring: #a11c22;
+}
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    font-family: "Inter Variable", "Inter", sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* 1. Gradient chạy ngang (generic) */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.animate-gradient-x {
+  animation: gradient-x 2s linear infinite;
+}
+
+/* 2. Text gradient chạy màu (logo style) */
+@keyframes brand-gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.animate-brand-text {
+  background-image: var(--custom-brand-btn-gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brand-gradient-x 3s linear infinite;
+}
+
+/* 3. Button CTA gradient ping-pong */
+@keyframes gradient-run {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animate-btn-gradient {
+  background-image: var(--custom-brand-btn-gradient);
+  background-size: 200% auto;
+  animation: gradient-run 2s ease infinite;
+  transition: all 0.3s ease;
+}
+.animate-btn-gradient:hover {
+  animation-duration: 1s;
+  box-shadow: 0 4px 15px rgba(113, 1, 5, 0.3);
+}
+
+/* 4. Shine effect */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: all 0.5s ease;
+}
+.btn-shine:hover::after {
+  left: 150%;
 }
