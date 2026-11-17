@@ -1,4 +1,4 @@
-import QueryProvider from "@/lib/providers/query-provider";
+import QueryProvider from "@/lib/providers/query.provider";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
